@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Olympic Score</title>
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <style>
+        body {
+            background: #d93333;
+            font-size: 12.5px;
+        }
+
+        body,
+        button,
+        input {
+            font-family: 'Righteous', cursive;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .background {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 0 1 700px;
+            margin: auto;
+            padding: 10px;
+        }
+
+        .screen {
+            position: relative;
+            background: #3e3e3e;
+            border-radius: 15px;
+        }
+
+        .screen:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 20px;
+            bottom: 0;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+            z-index: -1;
+        }
+
+        .screen-body {
+            display: flex;
+        }
+
+        .screen-body-item {
+            flex: 1;
+            padding: 50px;
+        }
+
+        .screen-body-item.left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .app-title {
+            display: flex;
+            /*flex-direction: column;*/
+            justify-content: center;
+            align-items: center;
+            color: #33d9b2;
+            font-size: 25px;
+            text-transform: uppercase;
+            border-left: 5px solid #218c31;
+            padding: 10px;
+        }
+
+        .app-form-group {
+            margin-bottom: 15px;
+        }
+
+        .app-form-group.buttons {
+            margin-bottom: 0;
+            text-align: right;
+        }
+
+        .app-form-control {
+            width: 100%;
+            padding: 10px 0;
+            background: none;
+            border: none;
+            border-bottom: 1px solid rgb(102, 102, 102);
+            color: #ddd;
+            font-size: 15px;
+            text-transform: uppercase;
+            outline: none;
+            transition: border-color .25s;
+        }
+
+        .app-form-control::placeholder {
+            color: #FFF;
+        }
+
+        .app-form-control:focus {
+            border-bottom-color: #ddd;
+        }
+
+        .app-form-button {
+            background: none;
+            border: none;
+            color: #33ced9;
+            font-size: 15px;
+            cursor: pointer;
+            outline: none;
+            text-transform: uppercase;
+        }
+
+        .app-form-button:hover {
+            color: #21818c;
+        }
+
+        .showdata {
+            text-align: center;
+            color: white;
+            font-size: 1.25rem;
+            padding-top: -10px;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Student Grade Calculator
+
+Each student has to enter respective subject marks.
+1. Find Total?
+2. Find Percentage?
+3. Find Grade?
+4. Check Pass or Fail.
+5. Combined all and show Output.-->
+
+    <div class="background">
+        <div class="container">
+            <div class="screen">
+                <div class="screen-body">
+                    <div class="screen-body-item left">
+                        <div class="app-title">
+                            <div class="animated infinite pulse">
+                                Olympic <br> Score <br> (m = meters)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-body-item">
+                        <div class="app-form">
+                            <div class="app-form-group">
+                                <input type="text" class="app-form-control" placeholder="SHOTPUT" id="shot">
+                            </div>
+                            <div class="app-form-group">
+                                <input type="text" class="app-form-control" placeholder="JAVELIN" id="jave">
+                            </div>
+                            <div class="app-form-group">
+                                <input type="text" class="app-form-control" placeholder="LONGJUMP" id="long">
+                            </div>
+                            <div class="app-form-group">
+                                <input type="text" class="app-form-control" placeholder="HIGHJUMP" id="high">
+                            </div>
+                            <div>
+                                <input type="button" name="" value="show (Percentage/Meters)" class="app-form-button"
+                                    onclick="calcy()">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="app-form-group showdata">
+                    <p id="showData"> </p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            const calcy = () => {
+                let shot = document.getElementById('shot').value;
+                let jave = document.getElementById('jave').value;
+                let long = document.getElementById('long').value;
+                let high = document.getElementById('high').value;
+                let rating = "";
+
+                let totalRating = parseFloat(shot) + parseFloat(jave) + parseFloat(long) + parseFloat(high);
+                alert(totalRating);
+
+                let perc = (totalRating / 160) * 100;
+                alert(perc);
+
+                debugger;
+
+                if (perc <= 100 && perc >= 80) {
+                    rating = 'Athlete';
+                } else if (perc <= 79 && perc >= 60) {
+                    rating = 'Long Legs';
+                } else if (perc <= 59 && perc >= 40) {
+                    rating = 'Kid King';
+                } else {
+                    rating = 'Baby Fingers';
+                }
+
+                if (perc >= 60) {
+                    document.getElementById('showData').innerHTML = ` Out of 160m your total is  ${totalRating}m and percentage is ${perc}%. <br> Your rating is ${rating}. You are a Athlete. `
+                }
+                else {
+                    document.getElementById('showData').innerHTML = ` Out of 160m your total is  ${totalRating}m and percentage is ${perc}%. <br> Your rating is ${rating}. You are not a Athlete. `
+                }
+
+            }
+
+        </script>
+
+</body>
+
+</html>
